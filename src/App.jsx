@@ -4,8 +4,6 @@ import { useState } from "react";
 function App() {
   const [jokData, setJokeData] = useState(null);
 
-const [jokeText, setJokeText] = useState();
-
 
   const showJoke = async () => {
     const data = await fetch("https://icanhazdadjoke.com/", {
@@ -21,9 +19,9 @@ const [jokeText, setJokeText] = useState();
   return (
     <div className='w-[700px] m-auto pt-[70px]'>
       <button onClick={
-        showJoke()
+        showJoke
       } className='text-gray-100 px-3 py-[0.2rem] rounded-md bg-[#ba5d2c] hover:bg-[#86380e]'>Random Dad Joke</button>
-      <p className="pt-9">{jokData.joker}</p>
+      <p key={jokData.id} className="pt-9">{jokData.joke}</p>
     </div>
   )
 }
