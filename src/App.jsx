@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 function App() {
@@ -8,20 +8,29 @@ function App() {
   const showJoke = async () => {
     const data = await fetch("https://icanhazdadjoke.com/", {
       method: "GET",
-    }).then((data) => data.json());
+      headers: {
+        Accept: "application/json"
+      }
+    }).then((data) => {
+      console.log(data);
+      return data.json();
+    });
     setJokeData(data);
- 
+
   };
   useEffect(() => {
     //Mount
     showJoke();
   }, []);
   return (
-    <div className='w-[700px] m-auto pt-[70px]'>
-      <button onClick={
-        showJoke
-      } className='text-gray-100 px-3 py-[0.2rem] rounded-md bg-[#ba5d2c] hover:bg-[#86380e]'>Random Dad Joke</button>
-      <p key={jokData.id} className="pt-9">{jokData.joke}</p>
+    <div className='flex justify-center pt-[70px]'>
+      <div className="w-6/12">
+        <button onClick={
+          showJoke
+        } className='text-gray-100 px-3 py-[0.2rem] rounded-md bg-[#ba5d2c] hover:bg-[#86380e]'>Random Dad Joke</button>
+        <p className="pt-9">{jokData?.joke}</p>
+      </div>
+
     </div>
   )
 }
